@@ -68,20 +68,37 @@ export default function Pokedex() {
     setPage(page + 1)
   }
 
+  function closeDetails() {
+    setSelectedPokemon(null)
+  }
+
   return (
-    <section>
+    <section className="pokedex-page">
       <div className="page-title">
-        <h2>Pokemon list</h2>
+        <div>
+          <p className="eyebrow">Pokedex</p>
+          <h2>Browse Pokemon</h2>
+        </div>
         <Pagination page={page} onPreviousPage={goToPreviousPage} onNextPage={goToNextPage} />
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className="status">Loading...</p>}
       {error && <p className="error">{error}</p>}
 
       <div className="pokedex-layout">
         <PokemonList pokemon={pokemon} onSelectPokemon={selectPokemon} />
-        <PokemonDetails pokemon={selectedPokemon} />
       </div>
+
+      {selectedPokemon && (
+        <div className="modal-backdrop" onClick={closeDetails}>
+          <div className="modal" onClick={event => event.stopPropagation()}>
+            <button className="modal-close" onClick={closeDetails} aria-label="Close details">
+              X
+            </button>
+            <PokemonDetails pokemon={selectedPokemon} />
+          </div>
+        </div>
+      )}
     </section>
   )
 }
