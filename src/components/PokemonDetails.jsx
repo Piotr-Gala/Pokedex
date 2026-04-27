@@ -8,7 +8,7 @@ export default function PokemonDetails({ pokemon }) {
     )
   }
 
-  const image = pokemon.sprites.front_default
+  const image = pokemon.image || pokemon.sprites.front_default
   const types = pokemon.types.map(item => item.type.name).join(", ")
   const abilities = pokemon.abilities.map(item => item.ability.name).join(", ")
 
